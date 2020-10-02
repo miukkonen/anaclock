@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang='en'>
+
+     <head>
+
+         <meta charset='utf-8'>
+
+         <title>AnaClock - Analog JS Clock</title>
+
+
+         <style>
+
+             html { text-align: center; }
+
+             body {
+
+                 margin: 0;
+                 display: flex;
+                 flex: 1;
+                 min-height: 100vh;
+                 align-items: center;
+
+             }
+
+
+             .clock {
+
+                 width: 30rem;
+                 height: 30rem;
+                 border: 20px solid white;
+                 border-radius: 50%;
+                 margin: 50px auto;
+                 position: relative;
+                 padding: 2rem;
+                 background: #eee;
+
+             }
+
+
+             .clock-face {
+
+                 position: relative;
+                 width: 100%;
+                 height: 100%;
+                 transform: translateY(-3px);
+
+             }
+
+
+             .hand {
+
+                 background: black;
+                 position: absolute;
+                 top: 50%;
+
+
+                 transform-origin: 100%;
+                 transform: rotate(90deg);
+
+
+             }
+
+             #h {
+
+                 height: 10px;
+                 width: 40%;
+                 left: 10%;
+
+             }
+
+             #m {
+
+                 width: 45%;
+                 left: 5%;
+                 height: 6px;
+
+             }
+
+             #s {
+
+                 width: 50%;
+                 height: 1px;
+
+             }
+
+
+         </style>
+
+
+
+
+     </head>
+
+     <body>
+
+         <div class='clock'>
+
+             <div class='clock-face'>
+
+                 <div class='hand' id='h'></div>
+                 <div class='hand' id='m'></div>
+                 <div class='hand' id='s'></div>
+
+             </div>
+
+         </div>
+
+
+
+
+         <script>
+
+             /*
+
+                 AnaClock - My version of Wes Bos' JavaScript30 JS and CSS Clock
+
+             */
+
+
+             // Hands of the clock are div elements
+             const secondHand = document.getElementById('s');
+             const minHand = document.getElementById('m');
+             const hourHand = document.getElementById('h');
+
+
+             // The clock is updated every 1000 msecs and hand position counted every time again
+             function updateClock() {
+
+                 const now = new Date();
+
+                 const seconds = now.getSeconds();
+                 const sDegrees = ((seconds / 60) * 360) + 90;
+                 secondHand.style.transform = `rotate(${sDegrees}deg)`;
+
+                 const mins = now.getMinutes();
+                 const mDegrees = ((mins / 60) * 360) + ((seconds / 60) * 6) + 90;
+                 minHand.style.transform = `rotate(${mDegrees}deg)`;
+
+                 const hours = now.getHours();
+                 const hDegrees = ((hours / 12) * 360) + ((mins / 60) * 30) + 90;
+                 hourHand.style.transform = `rotate(${hDegrees}deg)`;
+
+             }
+
+
+             // When the page has been loaded initializes functionality
+             function initPage() {
+
+                 // The clock hands are set to be updated every 1 s
+                 setInterval(updateClock, 1000);
+
+                 // The clock is first updated after page has loaded
+                 updateClock();
+
+             }
+
+
+             // When the page is loaded
+             document.addEventListener('DOMContentLoaded', initPage);
+
+         </script>
+
+
+     </body>
+
+</html>
